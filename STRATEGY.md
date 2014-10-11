@@ -1,5 +1,5 @@
-Hacking
-=======
+Strategy
+========
 
 In order to start hacking my hero's brain I want to define my preferences first
 
