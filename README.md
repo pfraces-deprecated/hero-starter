@@ -29,7 +29,7 @@ then, may the javascripts be with you!
 Improve your heroe
 ------------------
 
-We only pull down your `hero.js` and `helpers.js` files, so any changes you make must be in those files.
+**We only pull down your `hero.js` and `helpers.js` files**, so any changes you make must be in those files.
 
 Once you get acclimated to the different types of heroes and think you want to give writing your own hero a shot, try 
 altering some of the code. Maybe you want your miner to wait a little longer before going to a health well? What if your
@@ -64,8 +64,7 @@ each turn.
 *   Diamond mines will be denoted by "DXX" where the Xs are numbers
 *   Health wells will be denoted by "WWW"
 
-Remember, `test_your_hero_code.js` is there for you! Feel free to modify it however you like--we will only ever pull in
-and use your `hero.js` and `helpers.js` files in each daily battle.
+Remember, `test_your_hero_code.js` is there for you! Feel free to modify it however you like.
 
 ### Online simulator
 
