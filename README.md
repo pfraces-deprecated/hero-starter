@@ -10,7 +10,7 @@ Usage
 Javascript Battle is a fun and engaging web application intended to make artificial intelligence (AI) design accessible 
 to all.
 
-Every day, your code will be pulled down from your "hero-starter" repository on Github.
+Every day, your code will be pulled down from your `hero-starter` repository on Github.
 
 Your code (along with every other user's code) will be run daily, behind the scenes, in our game engine.
 
@@ -21,25 +21,26 @@ Don't see your hero? After you've been signed up for at least one day, you can l
 particular.
 
 You can login to check out your hero's personal stats, or check out the leaderboard to see how you rank up against the 
-competition.
+competition. 
+
+If we can make our site better in any way or make any instructions or code more explicit, please let us know. Until 
+then, may the javascripts be with you!
+
+Improve your heroe
+------------------
+
+We only pull down your `hero.js` and `helpers.js` files, so any changes you make must be in those files.
 
 Once you get acclimated to the different types of heroes and think you want to give writing your own hero a shot, try 
 altering some of the code. Maybe you want your miner to wait a little longer before going to a health well? What if your
 health nut was aware of where the nearest enemy was and tried to keep away? How about if the aggressor became a real 
 berserker? The possibilities are endless!!! And that is exactly how we want it. Go crazy and change your hero however 
-you want. Just remember to push your changes to your github repo.
+you want. **Just remember to push your changes to your github repo**.
 
 If you are looking for even more of a challenge, go ahead and take a look at the `helpers.js` file and begin picking 
 apart our helper methods. Is there anyway you could adapt our pathfinding algorithm and use a variant in your `hero.js` 
 file? What other helper methods should be available to your hero that we did not include? Go ahead and make any changes 
 you want to the `helpers.js` file.
-
-[Stop by](http://javascriptbattle.com/#page-top) the site tomorrow and see how your hero did. We encourage you to 
-continue to make changes to your hero repo as often as you like. We hope this experience will both be an enjoyable and 
-instructive experience. 
-
-If we can make our site better in any way or make any instructions or code more explicit, please let us know. Until 
-then, may the javascripts be with you!
 
 Testing
 -------
@@ -77,6 +78,11 @@ Rules
 If you want to update your hero, you will benefit from knowing a little more about the rules of the game. Below, you 
 will find detailed descriptions of the different aspects of the game logic.
 
+*   Each day your code will be assigned to a team at random and will fight for that king.
+*   Your hero's code will decide which way to travel depending on the state of the game. There are only 5 choices: 
+    "North", "South", "East", "West", and "Stay" (anything else will be interpreted by the game as "Stay").
+*   Every hero starts with the full 100 health points. If your hero's health drops below 0, it will die.
+
 ### Win Conditions
 
 The game is decided in one of two ways:
@@ -105,7 +111,8 @@ Several things happen on each turn. Let's take a single turn from your hero as a
     3.  If the tile your hero wants to move to is the grave of a fallen hero, your hero will rob that grave and be given
         credit.
     4.  If the tile your hero wants to move to is a diamond mine, then your hero will capture the diamond mine, but will
-        not move on to that tile. Additionally, your hero will receive 20 damage because diamond mines are magic.
+        not move on to that tile. Additionally, your hero will receive 20 damage because diamond mines are magic. Your 
+        hero will earn 1 diamond for each mine he/she owns at the start of his/her turn.
     5.  If the tile your hero wants to move to is a health well, then your hero will receive 30 health, but will not 
         move on to that tile.
     6.  If the tile your hero wants to move to is an enemy hero, then your hero will deal 10 damage to the enemy hero, 
@@ -137,24 +144,17 @@ statistics added to his or her total in our database:
 Heroes
 ------
 
-The only function that is required in this file is the `move` function
-
 You must export the `move` function from your `hero.js` file, in order for your code to run
 
 ```js
-module.exports = move;
+module.exports = function move (gameData, helpers) { ... };
 ```
-
-The `move` function must return "North", "South", "East", "West", or "Stay" (anything else will be interpreted by the 
-game as "Stay")
 
 The `move` function should accept two arguments that the website will be passing in: 
 
 *   A `gameData` object which holds all information about the current state of the battle
 *   A `helpers` object, which contains useful helper functions. Check out the `helpers.js` file to see what is
     available to you
-
-The details of these objects can be found on http://www.javascriptbattle.com/#rules
 
 ### Northerner
 
@@ -172,8 +172,8 @@ Walks in a random direction each turn.
 
 ```js
 module.exports = function () {
-  var choices = ['North', 'South', 'East', 'West'];
-  return choices[Math.floor(Math.random() * 4)];
+  var choices = ['North', 'South', 'East', 'West', 'Stay'];
+  return choices[Math.floor(Math.random() * choices.length)];
 };
 ```
 
