@@ -1,5 +1,7 @@
-Strategy
-========
+Chosen leaderboard
+==================
+
+TL;DR: I will focus on the **average kills** leaderboard
 
 In order to start hacking my hero's brain I want to define my preferences first
 
@@ -43,34 +45,3 @@ of the hero development I just one to focus on one win condition and I prefer th
 
 Since the average leatherboards statistically leads to higher overall ranking I will focus on the **average kills**
 leaderboard
-
-Thoughts from 1st day (October, 11 2014)
-----------------------------------------
-
-I have chosen the **Careful assasin** as starting point
-
-```js
-/**
- * Careful Assassin
- * 
- * This hero will attempt to kill the closest weaker enemy hero.
- */
-
-module.exports = function (gameData, helpers) {
-  var myHero = gameData.activeHero;
-  if (myHero.health < 50) { return helpers.findNearestHealthWell(gameData); }
-  return helpers.findNearestWeakerEnemy(gameData);
-};
-```
-
-### The good
-
-*   We won!
-*   Hero survived!
-*   140 damage dealt
-
-### The bad
-
-*   Hero didn't kill
-*   Trying to kill an enemy while he is using a health well is useless. You earn damage points but didn't kill him since
-    your damage (10 + 20) is equal to the healing well recovery (30). Meanwhile he is doing 20 damage to you
