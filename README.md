@@ -161,7 +161,7 @@ The details of these objects can be found on http://www.javascriptbattle.com/#ru
 Walks North. Always.
 
 ```js
-var move = function () {
+module.exports = function () {
   return 'North';
 };
 ```
@@ -171,7 +171,7 @@ var move = function () {
 Walks in a random direction each turn.
 
 ```js
-var move = function () {
+module.exports = function () {
   var choices = ['North', 'South', 'East', 'West'];
   return choices[Math.floor(Math.random() * 4)];
 };
@@ -182,7 +182,7 @@ var move = function () {
 Heals nearby friendly champions.
 
 ```js
-var move = function (gameData, helpers) {
+module.exports = function (gameData, helpers) {
   var myHero = gameData.activeHero;
   if (myHero.health < 60) { return helpers.findNearestHealthWell(gameData); }
   return helpers.findNearestTeamMember(gameData);
@@ -194,7 +194,7 @@ var move = function (gameData, helpers) {
 Attempts to kill the closest enemy hero. No matter what.
 
 ```js
-var move = function (gameData, helpers) {
+module.exports = function (gameData, helpers) {
   var myHero = gameData.activeHero;
   if (myHero.health < 30) { return helpers.findNearestHealthWell(gameData); }
   return helpers.findNearestEnemy(gameData);
@@ -206,7 +206,7 @@ var move = function (gameData, helpers) {
 Attempts to kill the closest weaker enemy hero.
 
 ```js
-var move = function (gameData, helpers) {
+module.exports = function (gameData, helpers) {
   var myHero = gameData.activeHero;
   if (myHero.health < 50) { return helpers.findNearestHealthWell(gameData); }
   return helpers.findNearestWeakerEnemy(gameData);
@@ -218,7 +218,7 @@ var move = function (gameData, helpers) {
 Cares about mining diamonds and making sure he or she is alive at the end of the game to enjoy the wealth.
 
 ```js
-var move = function (gameData, helpers) {
+module.exports = function (gameData, helpers) {
   var myHero = gameData.activeHero;
 
   // Get stats on the nearest health well
@@ -246,7 +246,7 @@ var move = function (gameData, helpers) {
 Attempts to capture diamond mines (even those owned by teammates).
 
 ```js
-var move = function (gameData, helpers) {
+module.exports = function (gameData, helpers) {
   var myHero = gameData.activeHero;
   
   // Get stats on the nearest health well
@@ -274,7 +274,7 @@ var move = function (gameData, helpers) {
 Finds the nearest health well and stay there.
 
 ```js
-var move = function (gameData, helpers) {
+module.exports = function (gameData, helpers) {
   return helpers.findNearestHealthWell(gameData);
 };
 ```
