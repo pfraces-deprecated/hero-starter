@@ -17,9 +17,11 @@ Your code (along with every other user's code) will be run daily, behind the sce
 [Watch](http://javascriptbattle.com/#replay) tomorrow's game and see how your hero does. Each day is going to offer a 
 unique battle as each player alters which hero they decide to play with.
 
-Don't see your hero? After you've been signed up for at least one day, you can login to see your hero's battle in particular.
+Don't see your hero? After you've been signed up for at least one day, you can login to see your hero's battle in 
+particular.
 
-You can login to check out your hero's personal stats, or check out the leaderboard to see how you rank up against the competition.
+You can login to check out your hero's personal stats, or check out the leaderboard to see how you rank up against the 
+competition.
 
 Once you get acclimated to the different types of heroes and think you want to give writing your own hero a shot, try 
 altering some of the code. Maybe you want your miner to wait a little longer before going to a health well? What if your
@@ -77,7 +79,8 @@ Additionally, you can still test your hero code on your own!  There are two ways
 Rules
 -----
 
-If you want to update your hero, you will benefit from knowing a little more about the rules of the game. Below, you will find detailed descriptions of the different aspects of the game logic.
+If you want to update your hero, you will benefit from knowing a little more about the rules of the game. Below, you 
+will find detailed descriptions of the different aspects of the game logic.
 
 ### Win Conditions
 
