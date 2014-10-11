@@ -1,5 +1,5 @@
-Chosen leaderboard
-==================
+Chosing leaderboard
+===================
 
 TL;DR: I will focus on the **average kills** leaderboard
 
