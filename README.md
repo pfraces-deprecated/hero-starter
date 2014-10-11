@@ -1,8 +1,27 @@
 Javascript Battle - Hero Starter Repo
 =====================================
 
-Default heroes
---------------
+Heroes
+------
+
+The only function that is required in this file is the `move` function
+
+You must export the `move` function from your `hero.js` file, in order for your code to run
+
+```js
+module.exports = move;
+```
+
+The `move` function must return "North", "South", "East", "West", or "Stay" (anything else will be interpreted by the 
+game as "Stay")
+
+The `move` function should accept two arguments that the website will be passing in: 
+
+*   A `gameData` object which holds all information about the current state of the battle
+*   A `helpers` object, which contains useful helper functions. Check out the `helpers.js` file to see what is
+    available to you
+
+The details of these objects can be found on http://www.javascriptbattle.com/#rules
 
 ### Northerner
 
