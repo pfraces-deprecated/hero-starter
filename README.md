@@ -44,37 +44,32 @@ then, may the javascripts be with you!
 Testing
 -------
 
-We have a user-friendly testing site where you can upload your hero.js file and see immediate results in a simulated 
-game. Check it out [here](http://codetester.javascriptbattle.com/).
+### Test your hero code
 
-Additionally, you can still test your hero code on your own!  There are two ways to do this:
+    npm install
+    npm test
+    
+### Put your hero in a mini-battle
 
-### Option 1: Make sure your code doesn't have errors
-
-*   On the command line, navigate to your hero code directory.
-*   After making sure you have Node and NPM installed, type in the following commands:
-
-        npm install
-        npm test
-
-*   If both tests pass, your code doesn't have any obvious errors!
-
-### Option 2: Put your hero in a mini-battle
-
-*   On the command line, navigate to your hero directory.
-*   After making sure you have Node installed, type in the following command:
-
-        node test_your_hero_code.js
+    node test_your_hero_code.js
         
-*   This will run and print out the results of a "mini-game" of only 15 turns which takes place on a 5x5 game board 
-    against a single enemy hero.
-*   The command line will output what the board looks like at each turn, and will output the moves your hero tried to 
-    make each turn.
+This will run and print out the results of a "mini-game" of only 15 turns which takes place on a 5x5 game board against 
+a single enemy hero.
+
+The command line will output what the board looks like at each turn, and will output the moves your hero tried to make
+each turn.
+
 *   Your hero will be denoted by the code "H00", the enemy hero will be denoted by the code "H01"
 *   Diamond mines will be denoted by "DXX" where the Xs are numbers
 *   Health wells will be denoted by "WWW"
-*   Remember, `test_your_hero_code.js` is there for you! Feel free to modify it however you like--we will only ever pull
-    in and use your `hero.js` and `helpers.js` files in each daily battle.
+
+Remember, `test_your_hero_code.js` is there for you! Feel free to modify it however you like--we will only ever pull in
+and use your `hero.js` and `helpers.js` files in each daily battle.
+
+### Online simulator
+
+We have a user-friendly testing site where you can upload your hero.js file and see immediate results in a simulated 
+game. Check it out [here](http://codetester.javascriptbattle.com/).
 
 Rules
 -----
