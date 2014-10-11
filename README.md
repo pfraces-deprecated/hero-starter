@@ -1,6 +1,79 @@
 Javascript Battle - Hero Starter Repo
 =====================================
 
+**THE YELLOW KING AND THE BLUE KING ARE AT WAR! YOUR JAVASCRIPT SKILLS ARE NEEDED TO DETERMINE THE VICTOR: CAN YOU CODE 
+AN EFFECTIVE AI FOR HONOR AND GLORY?**
+
+Usage
+-----
+
+Javascript Battle is a fun and engaging web application intended to make artificial intelligence (AI) design accessible 
+to all.
+
+Every day, your code will be pulled down from your "hero-starter" repository on Github.
+
+Your code (along with every other user's code) will be run daily, behind the scenes, in our game engine.
+
+[Watch](http://javascriptbattle.com/#replay) tomorrow's game and see how your hero does. Each day is going to offer a 
+unique battle as each player alters which hero they decide to play with.
+
+Don't see your hero? After you've been signed up for at least one day, you can login to see your hero's battle in particular.
+
+You can login to check out your hero's personal stats, or check out the leaderboard to see how you rank up against the competition.
+
+Once you get acclimated to the different types of heroes and think you want to give writing your own hero a shot, try 
+altering some of the code. Maybe you want your miner to wait a little longer before going to a health well? What if your
+health nut was aware of where the nearest enemy was and tried to keep away? How about if the aggressor became a real 
+berserker? The possibilities are endless!!! And that is exactly how we want it. Go crazy and change your hero however 
+you want. Just remember to push your changes to your github repo.
+
+If you are looking for even more of a challenge, go ahead and take a look at the `helpers.js` file and begin picking 
+apart our helper methods. Is there anyway you could adapt our pathfinding algorithm and use a variant in your `hero.js` 
+file? What other helper methods should be available to your hero that we did not include? Go ahead and make any changes 
+you want to the `helpers.js` file.
+
+[Stop by](http://javascriptbattle.com/#page-top) the site tomorrow and see how your hero did. We encourage you to 
+continue to make changes to your hero repo as often as you like. We hope this experience will both be an enjoyable and 
+instructive experience. 
+
+If we can make our site better in any way or make any instructions or code more explicit, please let us know. Until 
+then, may the javascripts be with you!
+
+Testing
+-------
+
+We have a user-friendly testing site where you can upload your hero.js file and see immediate results in a simulated 
+game. Check it out [here](http://codetester.javascriptbattle.com/).
+
+Additionally, you can still test your hero code on your own!  There are two ways to do this:
+
+### Option 1: Make sure your code doesn't have errors
+
+*   On the command line, navigate to your hero code directory.
+*   After making sure you have Node and NPM installed, type in the following commands:
+
+        npm install
+        npm test
+
+*   If both tests pass, your code doesn't have any obvious errors!
+
+### Option 2: Put your hero in a mini-battle
+
+*   On the command line, navigate to your hero directory.
+*   After making sure you have Node installed, type in the following command:
+
+        node test_your_hero_code.js
+        
+*   This will run and print out the results of a "mini-game" of only 15 turns which takes place on a 5x5 game board 
+    against a single enemy hero.
+*   The command line will output what the board looks like at each turn, and will output the moves your hero tried to 
+    make each turn.
+*   Your hero will be denoted by the code "H00", the enemy hero will be denoted by the code "H01"
+*   Diamond mines will be denoted by "DXX" where the Xs are numbers
+*   Health wells will be denoted by "WWW"
+*   Remember, `test_your_hero_code.js` is there for you! Feel free to modify it however you like--we will only ever pull
+    in and use your `hero.js` and `helpers.js` files in each daily battle.
+
 Rules
 -----
 
@@ -62,30 +135,6 @@ statistics added to his or her total in our database:
 *   Health Recovered
 *   Diamonds Earned
 *   Mines Captured
-
-Usage
------
-
-[Watch](http://javascriptbattle.com/#replay) tomorrow's game and see how your hero does. Each day is going to offer a 
-unique battle as each player alters which hero they decide to play with.
-
-Once you get acclimated to the different types of heroes and think you want to give writing your own hero a shot, try 
-altering some of the code. Maybe you want your miner to wait a little longer before going to a health well? What if your
-health nut was aware of where the nearest enemy was and tried to keep away? How about if the aggressor became a real 
-berserker? The possibilities are endless!!! And that is exactly how we want it. Go crazy and change your hero however 
-you want. Just remember to track your changes with Git by following the process above.
-
-If you are looking for even more of a challenge, go ahead and take a look at the helpers.js file and begin picking apart
-our helper methods. Is there anyway you could adapt our pathfinding algorithm and use a variant in your hero.js file? 
-What other helper methods should be available to your hero that we did not include? Go ahead and make any changes you 
-want to the helpers.js file.
-
-[Stop by](http://javascriptbattle.com/#page-top) the site tomorrow and see how your hero did. We encourage you to 
-continue to make changes to your hero repo as often as you like. We hope this experience will both be an enjoyable and 
-instructive experience. 
-
-If we can make our site better in any way or make any instructions or code more explicit, please let us know. Until 
-then, may the javascripts be with you!
 
 Heroes
 ------
@@ -231,38 +280,3 @@ var move = function (gameData, helpers) {
   return helpers.findNearestHealthWell(gameData);
 };
 ```
-
-Testing
--------
-
-We have a user-friendly testing site where you can upload your hero.js file and see immediate results in a simulated 
-game. Check it out [here](http://codetester.javascriptbattle.com/).
-
-Additionally, you can still test your hero code on your own!  There are two ways to do this:
-
-### Option 1: Make sure your code doesn't have errors
-
-*   On the command line, navigate to your hero code directory.
-*   After making sure you have Node and NPM installed, type in the following commands:
-
-        npm install
-        npm test
-
-*   If both tests pass, your code doesn't have any obvious errors!
-
-### Option 2: Put your hero in a mini-battle
-
-*   On the command line, navigate to your hero directory.
-*   After making sure you have Node installed, type in the following command:
-
-        node test_your_hero_code.js
-        
-*   This will run and print out the results of a "mini-game" of only 15 turns which takes place on a 5x5 game board 
-    against a single enemy hero.
-*   The command line will output what the board looks like at each turn, and will output the moves your hero tried to 
-    make each turn.
-*   Your hero will be denoted by the code "H00", the enemy hero will be denoted by the code "H01"
-*   Diamond mines will be denoted by "DXX" where the Xs are numbers
-*   Health wells will be denoted by "WWW"
-*   Remember, `test_your_hero_code.js` is there for you! Feel free to modify it however you like--we will only ever pull
-    in and use your `hero.js` and `helpers.js` files in each daily battle.
