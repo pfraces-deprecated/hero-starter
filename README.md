@@ -1,22 +1,134 @@
 Javascript Battle - Hero Starter Repo
 =====================================
 
+Default heroes
+--------------
+
+### Northerner
+
+Walks North. Always.
+
+```js
+var move = function () {
+  return 'North';
+};
+```
+
+### Blind Man
+
+Walks in a random direction each turn.
+
+```js
+var move = function () {
+  var choices = ['North', 'South', 'East', 'West'];
+  return choices[Math.floor(Math.random() * 4)];
+};
+```
+
+### Priest
+
+Heals nearby friendly champions.
+
+```js
+var move = function (gameData, helpers) {
+  var myHero = gameData.activeHero;
+  if (myHero.health < 60) { return helpers.findNearestHealthWell(gameData); }
+  return helpers.findNearestTeamMember(gameData);
+};
+```
+
+### Unwise Assassin
+
+Attempts to kill the closest enemy hero. No matter what.
+
+```js
+var move = function (gameData, helpers) {
+  var myHero = gameData.activeHero;
+  if (myHero.health < 30) { return helpers.findNearestHealthWell(gameData); }
+  return helpers.findNearestEnemy(gameData);
+};
+```
+
+### Careful Assassin
+
+Attempts to kill the closest weaker enemy hero.
+
+```js
+var move = function (gameData, helpers) {
+  var myHero = gameData.activeHero;
+  if (myHero.health < 50) { return helpers.findNearestHealthWell(gameData); }
+  return helpers.findNearestWeakerEnemy(gameData);
+};
+```
+
+### Safe Diamond Miner
+
+Cares about mining diamonds and making sure he or she is alive at the end of the game to enjoy the wealth.
+
+```js
+var move = function (gameData, helpers) {
+  var myHero = gameData.activeHero;
+
+  // Get stats on the nearest health well
+  
+  var healthWellStats = helpers.findNearestObjectDirectionAndDistance(gameData.board, myHero, function(boardTile) {
+    if (boardTile.type === 'HealthWell') { return true; }
+  });
+  
+  var distanceToHealthWell = healthWellStats.distance;
+  var directionToHealthWell = healthWellStats.direction;
+
+  // Heal no matter what if low health
+  if (myHero.health < 40) { return directionToHealthWell; }
+  
+  // Heal if you aren't full health and are close to a health well already
+  if (myHero.health < 100 && distanceToHealthWell === 1) { return directionToHealthWell; }
+  
+  // If healthy, go capture a diamond mine!
+  return helpers.findNearestNonTeamDiamondMine(gameData);
+};
+```
+
+### Selfish Diamond Miner
+
+Attempts to capture diamond mines (even those owned by teammates).
+
+```js
+var move = function (gameData, helpers) {
+  var myHero = gameData.activeHero;
+  
+  // Get stats on the nearest health well
+  
+  var healthWellStats = helpers.findNearestObjectDirectionAndDistance(gameData.board, myHero, function(boardTile) {
+    if (boardTile.type === 'HealthWell') { return true; }
+  });
+
+  var distanceToHealthWell = healthWellStats.distance;
+  var directionToHealthWell = healthWellStats.direction;
+
+  // Heal no matter what if low health
+  if (myHero.health < 40) { return directionToHealthWell; }
+  
+  // Heal if you aren't full health and are close to a health well already
+  if (myHero.health < 100 && distanceToHealthWell === 1) { return directionToHealthWell; }
+  
+  // If healthy, go capture a diamond mine!
+  return helpers.findNearestUnownedDiamondMine(gameData);
+};
+```
+
+### Coward
+
+Finds the nearest health well and stay there.
+
+```js
+var move = function (gameData, helpers) {
+  return helpers.findNearestHealthWell(gameData);
+};
+```
+
 Usage
 -----
-
-If you take a look at `hero.js`, you will notice that there are different move functions - most of which are commented 
-out. Each function describes a specific type of hero behavior. 
-
-*   The "Northerner" cares about moving North...all the time.
-*   The "Blind Man" moves randomly around the board.
-*   The "Unwise Assassin" only cares about killing other players, possibly to his own demise.
-*   The "Careful Assassin" goes after other players as well, but cares more about his health than the "Unwise Assassin."
-*   The "Safe Diamond Miner" cares about mining diamonds and making sure he or she is alive at the end of the game to 
-    enjoy the wealth.
-*   The "Selfish Diamond Miner" cares about mining diamonds, but will also capture his own team's diamond mines.
-*   The "Coward" will find the nearest health well and stay there.
-
-If you want to try something different for tomorrow's game uncomment one of the heroes and try it out.
 
 [Watch](http://javascriptbattle.com/#replay) tomorrow's game and see how your hero does. Each day is going to offer a 
 unique battle as each player alters which hero they decide to play with.
