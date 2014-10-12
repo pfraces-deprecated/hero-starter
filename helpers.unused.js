@@ -68,3 +68,23 @@ var findNearestTeamMember = function (gameData) {
   // Return the direction that needs to be taken to achieve the goal
   return pathInfoObject.direction;
 };
+
+/**
+ * findNearestEnemy()
+ * 
+ * Returns the direction of the nearest enemy
+ * (or returns false if there are no accessible enemies)
+ */
+ 
+var findNearestEnemy = function (gameData) {
+  var hero = gameData.activeHero;
+  var board = gameData.board;
+
+  // Get the path info object
+  var pathInfoObject = findNearestObjectDirectionAndDistance(board, hero, function (enemyTile) {
+    return enemyTile.type === 'Hero' && enemyTile.team !== hero.team
+  });
+
+  // Return the direction that needs to be taken to achieve the goal
+  return pathInfoObject.direction;
+};
