@@ -181,7 +181,7 @@ var findNearestWeakerEnemy = function (gameData) {
 
   // Get the path info object
   var pathInfoObject = findNearestObjectDirectionAndDistance(board, hero, function (enemyTile) {
-    return enemyTile.type === 'Hero' && enemyTile.team !== hero.team && enemyTile.health < hero.health;
+    return enemyTile.type === 'Hero' && enemyTile.team !== hero.team && enemyTile.health <= hero.health;
   });
 
   // Return the direction that needs to be taken to achieve the goal
