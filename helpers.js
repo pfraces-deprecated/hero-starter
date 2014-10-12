@@ -4,36 +4,94 @@
  * Returns false if the given coordinates are out of range
  */
  
-var validCoordinates = function (board, distanceFromTop, distanceFromLeft) {
-  return (!(distanceFromTop < 0 || distanceFromLeft < 0 ||
-      distanceFromTop > board.lengthOfSide - 1 || distanceFromLeft > board.lengthOfSide - 1));
+var validCoordinates = function (board, y, x) {
+  // board is a square
+  var width = board.lengthOfSide - 1,
+      height = board.lengthOfSide - 1;
+
+  var outOfRange = (
+      y < 0 ||
+      x < 0 ||
+      y > height ||
+      x > width
+  );
+
+  return !outOfRange;
 };
 
 /**
  * getTileNearby()
  * 
- * Returns the tile [direction] (North, South, East, or West) of the given X/Y coordinate
+ * Returns the tile from given starting point { x, y } when moving to a given
+ * direction
  */
  
-var getTileNearby = function (board, distanceFromTop, distanceFromLeft, direction) {
-
-  // These are the X/Y coordinates
-  
-  var fromTopNew = distanceFromTop;
-  var fromLeftNew = distanceFromLeft;
-
-  // This associates the cardinal directions with an X or Y coordinate
-  
-  if (direction === 'North') { fromTopNew -= 1; }
-  else if (direction === 'East') { fromLeftNew += 1; }
-  else if (direction === 'South') { fromTopNew += 1; }
-  else if (direction === 'West') { fromLeftNew -= 1; }
+var getTileNearby = function (board, y, x, direction) {
+  if (direction === 'North') { y -= 1; }
+  else if (direction === 'East') { x += 1; }
+  else if (direction === 'South') { y += 1; }
+  else if (direction === 'West') { x -= 1; }
   else { return false; }
 
-  // If the coordinates of the tile nearby are valid, return the tile object at those coordinates
-  
-  if (validCoordinates(board, fromTopNew, fromLeftNew)) { return board.tiles[fromTopNew][fromLeftNew]; }
+  if (validCoordinates(board, y, x)) { return board.tiles[y][x]; }
   return false;
+};
+
+/**
+ * getNearbyEnemies()
+ *
+ * Returns an array of enemies adjacent to the given point { x, y }
+ */
+
+var getNearbyEnemies = function (board, y, x) {
+  var directions = [
+    'North',
+    'East',
+    'South',
+    'West'
+  ];
+
+  var nearbyEnemies = [];
+
+  directions.forEach(function (direction) {
+    var tile = getTileNearby(board, y, x, direction);
+    if (!tile) { return; }
+
+    if (tile.type === 'Hero' && tile.team === 'Enemy') {
+      nearbyEnemies.push({
+        direction: direction,
+        tile: tile
+      });
+    }
+  });
+
+  return nearbyEnemies;
+};
+
+/**
+ * getNearbyWeakestEnemy()
+ *
+ * Return the weakest of the adjacent enemies if any
+ * Return false if there are not adjacent enemies
+ */
+
+var getNearbyWeakestEnemy = function (gameData) {
+  var hero = gameData.activeHero,
+      board = gameData.board;
+
+  var y = hero.distanceFromTop,
+      x = hero.distanceFromLeft,
+      enemies = getNearbyEnemies(board, y, x);
+
+  var weakestEnemy = false;
+
+  enemies.forEach(function (enemy) {
+    if (!weakestEnemy || enemy.tile.health < weakestEnemy.tile.health) {
+      weakestEnemy = enemy;
+    }
+  });
+
+  return weakestEnemy;
 };
 
 /**
@@ -191,6 +249,7 @@ var findNearestWeakerEnemy = function (gameData) {
 };
 
 module.exports = {
+  getNearbyWeakestEnemy: getNearbyWeakestEnemy,
   findNearestHealthWell: findNearestHealthWell,
   findNearestWeakerEnemy: findNearestWeakerEnemy
 };
