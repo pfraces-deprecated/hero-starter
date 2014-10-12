@@ -10,7 +10,7 @@ var findNearestNonTeamDiamondMine = function (gameData) {
 
   // Get the path info object
   
-  var pathInfoObject = helpers.findNearestObjectDirectionAndDistance(board, hero, function (mineTile) {
+  var pathInfoObject = findNearestObjectDirectionAndDistance(board, hero, function (mineTile) {
     if (mineTile.type === 'DiamondMine') {
       if (mineTile.owner) { return mineTile.owner.team !== hero.team; }
       return true;
@@ -35,7 +35,7 @@ var findNearestUnownedDiamondMine = function (gameData) {
 
   // Get the path info object
   
-  var pathInfoObject = helpers.findNearestObjectDirectionAndDistance(board, hero, function (mineTile) {
+  var pathInfoObject = findNearestObjectDirectionAndDistance(board, hero, function (mineTile) {
     if (mineTile.type === 'DiamondMine') {
       if (mineTile.owner) { return mineTile.owner.id !== hero.id; }
       return true;
@@ -61,7 +61,7 @@ var findNearestTeamMember = function (gameData) {
 
   // Get the path info object
   
-  var pathInfoObject = helpers.findNearestObjectDirectionAndDistance(board, hero, function (heroTile) {
+  var pathInfoObject = findNearestObjectDirectionAndDistance(board, hero, function (heroTile) {
     return heroTile.type === 'Hero' && heroTile.team === hero.team;
   });
 
