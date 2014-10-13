@@ -18,6 +18,9 @@ var paladin = function (gameData, helpers) {
     return adjacentEnemy.direction;
   }
 
+  var affordableEnemyDirection = helpers.findNearestAffordableEnemy(gameData);
+  if (affordableEnemyDirection) { return affordableEnemyDirection; }
+
   // heal affordable team members
 
   var adjacentTeamMember = helpers.getAdjacentWeakestTeamMember(gameData);

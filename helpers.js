@@ -79,8 +79,8 @@ var getAdjacentTiles = function (gameData, filter) {
 /**
  * getWeakestHero()
  *
- * Return the weakest hero in the provided array
- * Return false if the array is empty
+ * Returns the weakest hero in the provided array
+ * Returns false if the array is empty
  */
 
 var getWeakestHero = function (heroes) {
@@ -98,8 +98,8 @@ var getWeakestHero = function (heroes) {
 /**
  * getAdjacentWeakestEnemy()
  *
- * Return the weakest adjacent enemy if any
- * Return false otherwise
+ * Returns the weakest adjacent enemy if any
+ * Returns false otherwise
  */
 
 var getAdjacentWeakestEnemy = function (gameData) {
@@ -115,8 +115,8 @@ var getAdjacentWeakestEnemy = function (gameData) {
 /**
  * getAdjacentWeakestTeamMember()
  *
- * Return the weakest adjacent team member if any
- * Return false otherwise
+ * Returns the weakest adjacent team member if any
+ * Returns false otherwise
  */
 
 var getAdjacentWeakestTeamMember = function (gameData) {
@@ -132,8 +132,8 @@ var getAdjacentWeakestTeamMember = function (gameData) {
 /**
  * getAdjacentHealthWell()
  *
- * Return a health well adjacent to the hero if any
- * Return false otherwise
+ * Returns a health well adjacent to the hero if any
+ * Returns false otherwise
  */
 
 var getAdjacentHealthWell = function (gameData) {
@@ -262,7 +262,8 @@ var findNearestObject = function (board, fromTile, tileCallback) {
 /**
  * findNearestHealthWell()
  * 
- * Returns the nearest health well or false, if there are no health wells
+ * Returns the direction of the nearest health well available if any
+ * Returns undefined otherwise
  */
  
 var findNearestHealthWell = function (gameData) {
@@ -280,7 +281,7 @@ var findNearestHealthWell = function (gameData) {
  * findNearestWeakerEnemy()
  * 
  * Returns the direction of the nearest enemy with lower health if any
- * Return udnefined otherwise
+ * Returns undefined otherwise
  */
  
 var findNearestWeakerEnemy = function (gameData) {
@@ -300,10 +301,39 @@ var findNearestWeakerEnemy = function (gameData) {
   return pathInfoObject.direction;
 };
 
+/**
+ * findNearestAffordableEnemy()
+ * 
+ * Returns the direction of the nearest enemy which can be killed in the next
+ * move if any
+ *
+ * Returns undefined otherwise
+ */
+ 
+var findNearestAffordableEnemy = function (gameData) {
+  var myHero = gameData.activeHero;
+  var board = gameData.board;
+
+  var pathInfoObject = findNearestObject(board, myHero, function (tile) {
+    var isAffordableEnemy = (
+        tile.type === 'Hero' &&
+        tile.team !== myHero.team &&
+        tile.health <= 20
+    );
+
+    return isAffordableEnemy;
+  });
+
+  if (pathInfoObject && pathInfoObject.distance <= 2) {
+    return pathInfoObject.direction;
+  }
+};
+
 module.exports = {
   getAdjacentWeakestEnemy: getAdjacentWeakestEnemy,
   getAdjacentWeakestTeamMember: getAdjacentWeakestTeamMember,
   getAdjacentHealthWell: getAdjacentHealthWell,
   findNearestHealthWell: findNearestHealthWell,
-  findNearestWeakerEnemy: findNearestWeakerEnemy
+  findNearestWeakerEnemy: findNearestWeakerEnemy,
+  findNearestAffordableEnemy: findNearestAffordableEnemy
 };
