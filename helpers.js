@@ -38,12 +38,20 @@ var getTileNearby = function (board, y, x, direction) {
 };
 
 /**
- * getNearbyEnemies()
+ * getAdjacentHeroes()
  *
- * Returns an array of enemies adjacent to the given point { x, y }
+ * Returns an array of heroes adjacent to the given point { x, y }
+ *
+ * The provided callback is used as a hero filter
  */
 
-var getNearbyEnemies = function (board, y, x) {
+var getAdjacentHeroes = function (gameData, filter) {
+  var myHero = gameData.activeHero,
+      board = gameData.board;
+
+  var y = myHero.distanceFromTop,
+      x = myHero.distanceFromLeft;
+
   var directions = [
     'North',
     'East',
@@ -51,47 +59,73 @@ var getNearbyEnemies = function (board, y, x) {
     'West'
   ];
 
-  var nearbyEnemies = [];
+  var adjacentHeroes = [];
 
   directions.forEach(function (direction) {
     var tile = getTileNearby(board, y, x, direction);
-    if (!tile) { return; }
 
-    if (tile.type === 'Hero' && tile.team === 'Enemy') {
-      nearbyEnemies.push({
+    if (tile.type === 'Hero' && filter(tile)) {
+      adjacentHeroes.push({
         direction: direction,
         tile: tile
       });
     }
   });
 
-  return nearbyEnemies;
+  return adjacentHeroes;
 };
 
 /**
- * getNearbyWeakestEnemy()
+ * getWeakestHero()
  *
- * Return the weakest of the adjacent enemies if any
- * Return false if there are not adjacent enemies
+ * Return the weakest hero in the provided array
+ * Return false if the array is empty
  */
 
-var getNearbyWeakestEnemy = function (gameData) {
-  var hero = gameData.activeHero,
-      board = gameData.board;
+var getWeakestHero = function (heroes) {
+  var weakestHero = false;
 
-  var y = hero.distanceFromTop,
-      x = hero.distanceFromLeft,
-      enemies = getNearbyEnemies(board, y, x);
-
-  var weakestEnemy = false;
-
-  enemies.forEach(function (enemy) {
-    if (!weakestEnemy || enemy.tile.health < weakestEnemy.tile.health) {
-      weakestEnemy = enemy;
+  heroes.forEach(function (hero) {
+    if (!weakestHero || hero.tile.health < weakestHero.tile.health) {
+      weakestHero = hero;
     }
   });
 
-  return weakestEnemy;
+  return weakestHero;
+};
+
+/**
+ * getAdjacentWeakestEnemy()
+ *
+ * Return the weakest adjacent enemy if any
+ * Return false otherwise
+ */
+
+var getAdjacentWeakestEnemy = function (gameData) {
+  var myHero = gameData.activeHero;
+
+  var enemies = getAdjacentHeroes(gameData, function (tile) {
+    return tile.team !== myHero.team
+  });
+
+  return getWeakestHero(enemies);
+};
+
+/**
+ * getAdjacentWeakestTeamMember()
+ *
+ * Return the weakest adjacent team member if any
+ * Return false otherwise
+ */
+
+var getAdjacentWeakestTeamMember = function (gameData) {
+  var myHero = gameData.activeHero;
+
+  var teamMembers = getAdjacentHeroes(gameData, function (tile) {
+    return tile.team === myHero.team
+  });
+
+  return getWeakestHero(teamMembers);
 };
 
 /**
@@ -249,7 +283,8 @@ var findNearestWeakerEnemy = function (gameData) {
 };
 
 module.exports = {
-  getNearbyWeakestEnemy: getNearbyWeakestEnemy,
+  getAdjacentWeakestEnemy: getAdjacentWeakestEnemy,
+  getAdjacentWeakestTeamMember: getAdjacentWeakestTeamMember,
   findNearestHealthWell: findNearestHealthWell,
   findNearestWeakerEnemy: findNearestWeakerEnemy
 };

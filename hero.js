@@ -1,15 +1,30 @@
-module.exports = function (gameData, helpers) {
-  // kill when possible
+var paladin = function (gameData, helpers) {
+  var myHero = gameData.activeHero;
 
-  var nearbyEnemy = helpers.getNearbyWeakestEnemy(gameData);
+  // keep yourself healthy
 
-  if (nearbyEnemy && nearbyEnemy.tile.health < 30) {
-    return nearbyEnemy.direction;
+  if (myHero.health <= 60) { return helpers.findNearestHealthWell(gameData); }
+
+  // kill affordable enemies
+
+  var adjacentEnemy = helpers.getAdjacentWeakestEnemy(gameData);
+
+  if (adjacentEnemy && adjacentEnemy.tile.health < 30) {
+    return adjacentEnemy.direction;
   }
 
-  // act as a careful assassin
+  // heal affordable team members
 
-  var myHero = gameData.activeHero;
-  if (myHero.health < 50) { return helpers.findNearestHealthWell(gameData); }
+  var adjacentTeamMember = helpers.getAdjacentWeakestTeamMember(gameData);
+
+  if (adjacentTeamMember &&
+      adjacentTeamMember.tile.health < (myHero.health - 40)) {
+    return adjacentTeamMember.direction;
+  }
+
+  // default to careful assassin
+
   return helpers.findNearestWeakerEnemy(gameData);
 };
+
+module.exports = paladin;
