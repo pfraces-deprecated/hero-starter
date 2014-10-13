@@ -10,10 +10,6 @@
 var paladin = function (gameData, helpers) {
   var myHero = gameData.activeHero;
 
-  // keep yourself healthy
-
-  if (myHero.health <= 60) { return helpers.findNearestHealthWell(gameData); }
-
   // kill affordable enemies
 
   var adjacentEnemy = helpers.getAdjacentWeakestEnemy(gameData);
@@ -30,6 +26,16 @@ var paladin = function (gameData, helpers) {
       adjacentTeamMember.tile.health < (myHero.health - 40)) {
     return adjacentTeamMember.direction;
   }
+
+  // keep yourself healthy
+
+  var adjacentHealthWell = helpers.getAdjacentHealthWell(gameData);
+
+  if (adjacentHealthWell && myHero.health < 100) {
+    return adjacentHealthWell.direction;
+  }
+
+  if (myHero.health <= 60) { return helpers.findNearestHealthWell(gameData); }
 
   // default to careful assassin
 
