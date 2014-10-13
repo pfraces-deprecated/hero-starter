@@ -1,3 +1,12 @@
+/**
+ * Paladin
+ *
+ * A mix of priest and careful assasin
+ *
+ * It tries to heal teammates while keeping himself healthy, but if he has a
+ * chance to kill, he does
+ */
+
 var paladin = function (gameData, helpers) {
   var myHero = gameData.activeHero;
 
