@@ -147,12 +147,12 @@ var getAdjacentHealthWell = function (gameData) {
 };
 
 /**
- * findNearestObjectDirectionAndDistance()
+ * findNearestObject()
  * 
  * Returns an object with certain properties of the nearest object we are looking for
  */
  
-var findNearestObjectDirectionAndDistance = function (board, fromTile, tileCallback) {
+var findNearestObject = function (board, fromTile, tileCallback) {
   // Storage queue to keep track of places the fromTile has been
   var queue = [];
 
@@ -269,34 +269,34 @@ var findNearestHealthWell = function (gameData) {
   var hero = gameData.activeHero;
   var board = gameData.board;
 
-  // Get the path info object
-  var pathInfoObject = findNearestObjectDirectionAndDistance(board, hero, function (healthWellTile) {
-    return healthWellTile.type === 'HealthWell';
+  var pathInfoObject = findNearestObject(board, hero, function (tile) {
+    return tile.type === 'HealthWell';
   });
 
-  // Return the direction that needs to be taken to achieve the goal
   return pathInfoObject.direction;
 };
 
 /**
  * findNearestWeakerEnemy()
  * 
- * Returns the direction of the nearest enemy with lower health
- * (or returns false if there are no accessible enemies that fit this description)
+ * Returns the direction of the nearest enemy with lower health if any
+ * Return udnefined otherwise
  */
  
 var findNearestWeakerEnemy = function (gameData) {
-  var hero = gameData.activeHero;
+  var myHero = gameData.activeHero;
   var board = gameData.board;
 
-  // Get the path info object
-  var pathInfoObject = findNearestObjectDirectionAndDistance(board, hero, function (enemyTile) {
-    return enemyTile.type === 'Hero' && enemyTile.team !== hero.team && enemyTile.health <= hero.health;
+  var pathInfoObject = findNearestObject(board, myHero, function (tile) {
+    var isWeakerEnemy = (
+        tile.type === 'Hero' &&
+        tile.team !== myHero.team &&
+        tile.health <= myHero.health
+    );
+
+    return isWeakerEnemy;
   });
 
-  // Return the direction that needs to be taken to achieve the goal
-  // If no weaker enemy exists, will simply return undefined, which will
-  // be interpreted as "Stay" by the game object
   return pathInfoObject.direction;
 };
 

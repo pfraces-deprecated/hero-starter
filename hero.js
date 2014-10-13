@@ -14,7 +14,7 @@ var paladin = function (gameData, helpers) {
 
   var adjacentEnemy = helpers.getAdjacentWeakestEnemy(gameData);
 
-  if (adjacentEnemy && adjacentEnemy.tile.health < 30) {
+  if (adjacentEnemy && adjacentEnemy.tile.health <= 30) {
     return adjacentEnemy.direction;
   }
 
@@ -37,9 +37,13 @@ var paladin = function (gameData, helpers) {
 
   if (myHero.health <= 60) { return helpers.findNearestHealthWell(gameData); }
 
-  // default to careful assassin
+  // go for a weaker enemy if any
+  // or go for a health well otherwise
 
-  return helpers.findNearestWeakerEnemy(gameData);
+  return (
+      helpers.findNearestWeakerEnemy(gameData) ||
+      helpers.findNearestHealthWell(gameData)
+  );
 };
 
 module.exports = paladin;
